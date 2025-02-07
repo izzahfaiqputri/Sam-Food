@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="efb0d785-949e-43d8-ad10-235c91110f89">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="order_id" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT 
+    r.restaurant_name,
+    mp.method AS payment_method,
+    f.food_name,
+    f.price AS food_price,
+    r.restaurant_address,
+    p.fee_driver,
+    p.price_order,
+    o.order_status
+FROM Orders o
+INNER JOIN Detail_Pesanan dp ON o.order_id = dp.order_id
+INNER JOIN Food f ON dp.food_id = f.food_id
+INNER JOIN Restaurant r ON f.restaurant_id = r.restaurant_id
+INNER JOIN Payment p ON o.order_id = p.order_id
+INNER JOIN Method_Payment mp ON p.payment_id = mp.payment_id
+WHERE o.order_id = $P{order_id}]]>
+	</queryString>
+	<field name="restaurant_name" class="java.lang.String"/>
+	<field name="payment_method" class="java.lang.String"/>
+	<field name="food_name" class="java.lang.String"/>
+	<field name="food_price" class="java.lang.Integer"/>
+	<field name="restaurant_address" class="java.lang.String"/>
+	<field name="fee_driver" class="java.lang.Double"/>
+	<field name="price_order" class="java.lang.Double"/>
+	<field name="order_status" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="116" splitType="Stretch">
+			<staticText>
+				<reportElement x="3" y="69" width="100" height="20" uuid="0920f71e-4a4d-4a5c-871a-e9d763d10924"/>
+				<text><![CDATA[restaurant_name]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="3" y="96" width="100" height="20" uuid="ac35bb76-8458-4d66-86a3-80f1e5d03cdb"/>
+				<textFieldExpression><![CDATA[$F{restaurant_name}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="702" y="69" width="100" height="20" uuid="1c3b7689-03c7-491d-98c4-9e7710ef348e"/>
+				<text><![CDATA[restaurant_address]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="702" y="96" width="100" height="20" uuid="b6bfaa06-f73a-4103-ab66-e6670b32cc41"/>
+				<textFieldExpression><![CDATA[$F{restaurant_address}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="306" y="0" width="253" height="48" uuid="add455b0-1783-4019-8957-57775753192a"/>
+				<textElement>
+					<font size="36" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[SAMFOOD]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="55" splitType="Stretch">
+			<staticText>
+				<reportElement x="633" y="21" width="100" height="20" uuid="6dd4fe43-6c5a-421c-bd38-efab9ea6cd29"/>
+				<textElement>
+					<font fontName="Berlin Sans FB Demi" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Payment_method]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="54" y="21" width="100" height="20" uuid="cb2b90ba-774a-487e-955d-70737cd78aec"/>
+				<textElement>
+					<font fontName="Berlin Sans FB Demi" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Food_name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="332" y="21" width="100" height="20" uuid="14b122ff-53f0-4aa6-b7e6-a3406f86c899"/>
+				<textElement>
+					<font fontName="Berlin Sans FB Demi" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Order_Status]]></text>
+			</staticText>
+			<line>
+				<reportElement x="20" y="54" width="757" height="1" uuid="beda7860-74a9-48e6-8648-8a474a77ac79"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="36" splitType="Stretch">
+			<textField>
+				<reportElement x="658" y="16" width="100" height="20" uuid="f8bbcfa9-0c7c-4e9c-92d8-b100f1058aab"/>
+				<textFieldExpression><![CDATA[$F{payment_method}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="54" y="16" width="100" height="20" uuid="63eab975-8cc2-40a9-97b7-3a92b334c462"/>
+				<textFieldExpression><![CDATA[$F{food_name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="343" y="16" width="100" height="20" uuid="5759e490-a800-4258-8c4a-f54add3ff857"/>
+				<textFieldExpression><![CDATA[$F{order_status}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch">
+			<textField>
+				<reportElement x="687" y="25" width="100" height="20" uuid="cc5df6e5-69c7-4a68-a085-711f7718ae20"/>
+				<textFieldExpression><![CDATA[$F{price_order}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="687" y="0" width="100" height="20" uuid="63122e29-2a75-4683-97e4-a48674f18482"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total_Price]]></text>
+			</staticText>
+		</band>
+	</columnFooter>
+</jasperReport>
